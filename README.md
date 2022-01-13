@@ -24,9 +24,30 @@
 
 # Coin Tracker
 
-- Rotuer Use for v6 Routes, and Route more intuitive
+### Rotuer Use for v6 Routes, and Route more intuitive
 
 | Router      |  function   |
 | ----------- | :---------: |
 | /           |  All Coins  |
 | /:id ->/btc | Coin Detail |
+
+- Link state props can send any data check on index.d.ts
+- Nesting router With outlet -[Check Here](https://reactrouter.com/docs/en/v6/getting-started/overviews)
+- Get current url with match hooks return objects or null
+
+### Reset Css
+
+- Use createGlobalstyle from styled-components
+- Use reset css
+
+### Fetching Data
+
+- Manually
+
+  - await fetch("https://api.coinpaprika.com/v1/coins");
+  - const json = await response.json();
+
+- Do it One line
+  - await (
+    await fetch(`https://api.coinpaprika.com/v1/coins/${id}`)
+    ).json();

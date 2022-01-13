@@ -1,11 +1,95 @@
-import { Outlet } from "react-router";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+const Container = styled.div`
+  padding: 0px 20px;
+  max-width: 520px;
+  margin: 0 auto;
+`;
+
+const Header = styled.header`
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const CoinList = styled.ul``;
+
+const Coin = styled.li`
+  background-color: ${(props) => props.theme.textColor};
+  color: ${(props) => props.theme.bgColor};
+  border-radius: 15px;
+  margin-bottom: 10px;
+  a {
+    padding: 20px;
+    transition: color 0.2s ease-in;
+    display: flex;
+    align-items: center;
+  }
+  &:hover {
+    a {
+      color: ${(props) => props.theme.accentColor};
+    }
+  }
+  display: block;
+`;
+
+const Title = styled.h1`
+  color: ${(props) => props.theme.accentColor};
+  font-size: 48px;
+`;
+
+const Img = styled.img`
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
+`;
+
+export interface ICoins {
+  id: string;
+  name: string;
+  rank: number;
+  symbol: string;
+  is_new: boolean;
+  is_active: boolean;
+  type: string;
+}
 
 const Coins = () => {
+  const [result, setResult] = useState<ICoins[]>([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    (async () => {
+      const response = await fetch("https://api.coinpaprika.com/v1/coins");
+      const json = await response.json();
+      setResult(json.slice(0, 50));
+      setLoading(false);
+    })();
+  }, []);
   return (
-    <>
-      <h1>Coins</h1>
-      <Outlet />
-    </>
+    <Container>
+      <Header>
+        <Title>코인</Title>
+      </Header>
+      {loading ? (
+        <div>Loading</div>
+      ) : (
+        <CoinList>
+          {result.map((item) => (
+            <Coin key={item.id}>
+              <Link to={`/${item.id}`} state={item}>
+                <Img
+                  src={`https://cryptoicon-api.vercel.app/api/icon/${item.symbol.toLowerCase()}`}
+                />
+                {item.name} &rarr;
+              </Link>
+            </Coin>
+          ))}
+        </CoinList>
+      )}
+    </Container>
   );
 };
 
