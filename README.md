@@ -70,3 +70,14 @@
     - ex) useQuery(['todo', 5, { preview: true }], ...)
   - [React Query Devtools](https://react-query.tanstack.com/devtools#_top)
     - 😭 Not surport Rn
+  - refetchInterval: 5000, can give an option for interver refetching
+
+### React ApexChart
+
+- [ApexChart](https://apexcharts.com/docs/react-charts/)
+- There are so many options , need to check on Demo pages
+
+### Recoil
+
+- [Recoil](https://recoiljs.org/ko)
+- State Management

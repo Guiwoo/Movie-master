@@ -138,13 +138,19 @@ const Coin = () => {
   const { id } = useParams() as IParams;
   const priceMatch = useMatch("/:id/price");
   const chartMatch = useMatch("/:id/chart");
+  console.log(state?.name);
   const { isLoading: infoLoading, data: infoData } = useQuery(
     ["info", id],
     () => fetchCoinInfo(id)
   );
-  const { isLoading: priceLoading, data: priceData } = useQuery(
+  const { isLoading: priceLoading, data: priceData } = useQuery<IPriceData>(
     ["price", id],
-    () => fetchCoinPrice(id)
+    () => fetchCoinPrice(id),
+    {
+      refetchInterval: () => {
+        return 5000;
+      },
+    }
   );
   const loading = infoLoading || priceLoading;
   return (
@@ -166,8 +172,8 @@ const Coin = () => {
               <span>${infoData?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
-              <span>Open Source:</span>
-              <span>{infoData?.open_source ? "Yes" : "No"}</span>
+              <span>Price:</span>
+              <span>{priceData?.quotes.USD.price}</span>
             </OverviewItem>
           </Overview>
           <Description>{infoData?.description}</Description>
@@ -183,10 +189,14 @@ const Coin = () => {
           </Overview>
           <Tabs>
             <Tab isActive={priceMatch !== null}>
-              <Link to={`price`}>Price</Link>
+              <Link to={`price`} state={id}>
+                Price
+              </Link>
             </Tab>
             <Tab isActive={chartMatch !== null}>
-              <Link to={`chart`}>Chart</Link>
+              <Link to={`chart`} state={state}>
+                Chart
+              </Link>
             </Tab>
           </Tabs>
         </>
