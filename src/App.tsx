@@ -3,14 +3,13 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { ThemeProvider } from "styled-components";
 import { dark, light } from "./styles/theme";
 import GlobalStyle from "./styles/GlobalStyle";
-import { useState } from "react";
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "./atom";
 
 function App() {
-  const [isDark, setIsDark] = useState(false);
-  const toggleDark = () => setIsDark(!isDark);
+  const isDark = useRecoilValue(isDarkAtom);
   return (
     <ThemeProvider theme={isDark ? dark : light}>
-      <button onClick={toggleDark}>Mode</button>
       <GlobalStyle />
       <Routers />
       <ReactQueryDevtools initialIsOpen={true} />

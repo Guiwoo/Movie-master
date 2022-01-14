@@ -80,4 +80,11 @@
 ### Recoil
 
 - [Recoil](https://recoiljs.org/ko)
-- State Management
+- What if i don't use global state manager
+  - send props to compononet to other components inside other components ...abs
+- Step
+  1. RecoilRoot wrapping App component
+  2. Make a atom with like const somehitng = atom({})
+  3. Call it with useRecoilValue
+  - Wanna set values ? => call useSetRecoilState and use it as setState()
+  - ex) () => setterFn((prev) => !prev)

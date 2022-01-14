@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { fetchCoins } from "../apit";
+import { useSetRecoilState } from "recoil";
+import { isDarkAtom } from "../atom";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -60,11 +62,13 @@ export interface ICoins {
 }
 
 const Coins = () => {
+  const setterFn = useSetRecoilState(isDarkAtom);
   const { isLoading, data, refetch } = useQuery<ICoins[]>("Coins", fetchCoins);
   return (
     <Container>
       <Header>
         <Title>코인</Title>
+        <button onClick={() => setterFn((prev) => !prev)}>Mode</button>
       </Header>
       {isLoading ? (
         <div>Loading</div>
