@@ -51,3 +51,19 @@
   - await (
     await fetch(`https://api.coinpaprika.com/v1/coins/${id}`)
     ).json();
+
+### React Query
+
+- [React Query](https://react-query.tanstack.com/reference/useQuery#_top)
+- Steps
+  - Fetcher Fc
+    - return json (ex) fetch(url).then(x=>x.json()))
+  - Wrapped App component with queryProvider
+  - call useQuery where you need
+    - {isLoading,data,refetch}=useQuery("Coins",fetcherFC)
+  - [Query Keys](https://react-query.tanstack.com/guides/query-keys)
+    - ==It's common to pass an ID, index, or other primitive to uniquely identify the item==
+    - Previous example query key is "Coins"
+    - it will turning `["Coins"]` array!
+    - put whatever things in array
+    - ex) useQuery(['todo', 5, { preview: true }], ...)
