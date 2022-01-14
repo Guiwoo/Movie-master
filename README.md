@@ -17,7 +17,7 @@
 - [Play Ground](https://www.typescriptlang.org/play)
 - optional props ? set a default value in children node
   - ex) borderColor={borderColor ?? "white"}
-- Can set default value on arguments sid
+- Can set default value on arguments side
   - const blar = ({x="default x"})=>{}
 - [SyntheticEvent](https://reactjs.org/docs/events.html)
   - Can find event
@@ -55,6 +55,7 @@
 ### React Query
 
 - [React Query](https://react-query.tanstack.com/reference/useQuery#_top)
+- No need refetching because after fetching datas will stored on cache
 - Steps
   - Fetcher Fc
     - return json (ex) fetch(url).then(x=>x.json()))
@@ -67,3 +68,5 @@
     - it will turning `["Coins"]` array!
     - put whatever things in array
     - ex) useQuery(['todo', 5, { preview: true }], ...)
+  - [React Query Devtools](https://react-query.tanstack.com/devtools#_top)
+    - 😭 Not surport Rn
