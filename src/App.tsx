@@ -1,6 +1,6 @@
 import GlobalStyle from "./styles/GlobalStyle";
 import { useRecoilValue } from "recoil";
-import ToDoList from "./ToDoList";
+import ToDoList from "./components/ToDoList";
 
 function App() {
   return (

@@ -87,15 +87,11 @@
 
 - [ApexChart](https://apexcharts.com/docs/react-charts/)
 
----
-
 - There are so many options , need to check on Demo pages
 
 ### Recoil
 
 - [Recoil](https://recoiljs.org/ko)
-
----
 
 - What if i don't use global state manager
   - send props to compononet to other components inside other components ...abs
@@ -110,13 +106,17 @@
   - Wanna set values ? => call useSetRecoilState and use it as setState()
   - ex) () => setterFn((prev) => !prev)
 
+> useRcoilValue ? when i need a value !
+> useSetRecoilState ? when i need a modifiy a value!
+> useRecoilState ? Literally Do useSettate ! can unpack [value, modifire]
+
+---
+
 ## Todo-List
 
 ### React-hook-form
 
 - [React Hook Form](https://react-hook-form.com/)
-
----
 
 - > Why needs it ?
 
@@ -134,8 +134,6 @@
 
       5. Validation ? Have to set state
 
----
-
 - > React Hook Step
 
   - Register Func
@@ -152,14 +150,19 @@
 
     - Send message as well, require:"message",minlenth:{num,"message"}
     - Email Check with Regex
+
       - pattern: /^[A-Za-z0-9._%+-]+@naver.com$/
+
     - Custom Validation
+
       - Handle on onValid with data !
       - setError from useForm
         - setError("field",{message:"######"},#1)
         - whole form error ? needs to add interface as well
         - #1 {shouldFoucs:true} will focus after error ouccer
+
     - validate on required
+
       - [Check here](https://react-hook-form.com/api/useform/register)
       - ex) validate : { (value) => !value.includes("nico") || "error message"}
       - can pass multiple validate
