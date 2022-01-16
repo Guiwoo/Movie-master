@@ -21,6 +21,8 @@
   - const blar = ({x="default x"})=>{}
 - [SyntheticEvent](https://reactjs.org/docs/events.html)
   - Can find event
+- Enums "Variables group"
+  - [Enums Click](https://www.typescriptlang.org/ko/docs/handbook/enums.html)
 
 ## Coin Tracker
 
@@ -109,10 +111,7 @@
 > useRcoilValue ? when i need a value !
 > useSetRecoilState ? when i need a modifiy a value!
 > useRecoilState ? Literally Do useSettate ! can unpack [value, modifire]
-
----
-
-## Todo-List
+> Selector ? Transfor atom output [Check Here](https://recoiljs.org/docs/api-reference/core/selector/)
 
 ### React-hook-form
 

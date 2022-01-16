@@ -1,10 +1,9 @@
-import { useSetRecoilState } from "recoil";
-import { ItoDoState, toDoAtom } from "../atom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { CategoryEnum, ItoDoState, toDoAtom, toDoSelecor } from "../atom";
 
 const ListTodo = ({ text, category, id }: ItoDoState) => {
   const setToDos = useSetRecoilState(toDoAtom);
   const onClick = (newCat: ItoDoState["category"]) => {
-    console.log(newCat);
     setToDos((oldTodos) => {
       const targetIndex = oldTodos.findIndex((e) => e.id === id);
       const updateTodo = { id, text, category: newCat };
@@ -33,14 +32,14 @@ const ListTodo = ({ text, category, id }: ItoDoState) => {
         <li>{text}</li>
       </div>
       <div style={{ display: "flex", flexDirection: "column" }}>
-        {category !== "Doing" && (
-          <button onClick={() => onClick("Doing")}>Doing</button>
+        {category !== CategoryEnum.Doing && (
+          <button onClick={() => onClick(CategoryEnum.Doing)}>Doing</button>
         )}
-        {category !== "Todo" && (
-          <button onClick={() => onClick("Todo")}>To Do</button>
+        {category !== CategoryEnum.Todo && (
+          <button onClick={() => onClick(CategoryEnum.Todo)}>To Do</button>
         )}
-        {category !== "Done" && (
-          <button onClick={() => onClick("Done")}>Done</button>
+        {category !== CategoryEnum.Done && (
+          <button onClick={() => onClick(CategoryEnum.Done)}>Done</button>
         )}
       </div>
     </div>
