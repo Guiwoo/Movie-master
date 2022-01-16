@@ -1,6 +1,6 @@
 # React MASTER
 
-## Styling
+### Styling
 
 - Styled Components
   - Organize div Boxes
@@ -12,7 +12,7 @@
   - Give a selector in component other component
     - > `${component} {style}`
 
-## TypeSciprt
+### TypeSciprt
 
 - [Play Ground](https://www.typescriptlang.org/play)
 - optional props ? set a default value in children node
@@ -23,8 +23,6 @@
   - Can find event
 - Enums "Variables group"
   - [Enums Click](https://www.typescriptlang.org/ko/docs/handbook/enums.html)
-
-## Coin Tracker
 
 ### Rotuer Use for v6 Routes, and Route more intuitive
 
@@ -176,3 +174,19 @@
         - ex) validate:{noNico: (value)=> ###,noNick:(value)=>###}
       - register("#",{validate:(#2) => do something})
         - #2 can get a value of input
+
+### Drag & Drop
+
+> [Check on Here](https://github.com/LeeHyungGeun/react-beautiful-dnd-kr) > [See Examples](https://codesandbox.io/s/k260nyxq9v) > [Test](https://react-beautiful-dnd.netlify.app/iframe.html?id=board--simple) > [Vanilla Way](https://codesandbox.io/s/immutable-violet-5gm4z?file=/src/index.js)
+
+- Can Draggable Items !!
+
+- Steps
+
+  1. DragDropContext ! Supposed to wrapped where you want user to drag items
+
+  2. Needs a Props "Dragend" which is when dragend triiger
+
+  3. Droppable ! Needs a droppableId and children Supoosed to be function
+
+  4. Draggable ! Needs a draggbaleId,index as children Supposed to be function as well
