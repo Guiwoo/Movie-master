@@ -177,8 +177,7 @@
 
 ### Drag & Drop
 
-> [Check on Here](https://github.com/LeeHyungGeun/react-beautiful-dnd-kr)** > [See Examples](https://codesandbox.io/s/k260nyxq9v)** > [Test](https://react-beautiful-dnd.netlify.app/iframe.html?id=board--simple)**
-> [Vanilla Way](https://codesandbox.io/s/immutable-violet-5gm4z?file=/src/index.js)**
+> [Check on Here](https://github.com/LeeHyungGeun/react-beautiful-dnd-kr)** > [See Examples](https://codesandbox.io/s/k260nyxq9v)** > [Test](https://react-beautiful-dnd.netlify.app/iframe.html?id=board--simple)** > [Vanilla Way](https://codesandbox.io/s/immutable-violet-5gm4z?file=/src/index.js)**
 
 - Can Draggable Items !!
 
@@ -191,3 +190,7 @@
   3. Droppable ! Needs a droppableId and children Supoosed to be function
 
   4. Draggable ! Needs a draggbaleId,index as children Supposed to be function as well
+
+  5. Droppalbe, Draggble has Props,droppableProps ,innerRef, draggableProps ,dragHandleProps
+
+  6. give right props on right place !!
