@@ -109,9 +109,17 @@
   - ex) () => setterFn((prev) => !prev)
 
 > useRcoilValue ? when i need a value !
+
 > useSetRecoilState ? when i need a modifiy a value!
+
 > useRecoilState ? Literally Do useSettate ! can unpack [value, modifire]
+
 > Selector ? Transfor atom output [Check Here](https://recoiljs.org/docs/api-reference/core/selector/)
+
+> > Selector for set function
+
+- [Git hub Click](https://github.com/nomadcoders/react-masterclass/tree/64a5b4d00939b09c5ebf934ebaa74daedea34283)
+- [ReCoil Click](https://recoiljs.org/docs/api-reference/core/selector#writeable-selectors)
 
 ### React-hook-form
 
