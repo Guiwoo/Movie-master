@@ -196,6 +196,20 @@
 
   6. give right props on right place !!
 
+  - Droppablestate snapshot
+  - isDraggingOver: boolean,
+
+  - Droppable over Draggable ID
+  - draggingOverWith: ?DraggableId,
+
+  - Draggable ID out of Current Droppable Id
+  - draggingFromThisWith: ?DraggableId,
+
+  - placeholder : work or not
+  - isUsingPlaceholder: boolean,
+
+  - [Check Here](https://github.com/atlassian/react-beautiful-dnd/blob/HEAD/docs/api/droppable.md#2-snapshot-droppablestatesnapshot)
+
 ### React.memo
 
 - Tell react do not rerender if it's not updating
