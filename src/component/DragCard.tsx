@@ -1,3 +1,4 @@
+import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
@@ -32,4 +33,4 @@ const DragCard = ({ e, index }: IProps) => {
   );
 };
 
-export default DragCard;
+export default React.memo(DragCard);

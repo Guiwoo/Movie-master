@@ -23,6 +23,7 @@
   - Can find event
 - Enums "Variables group"
   - [Enums Click](https://www.typescriptlang.org/ko/docs/handbook/enums.html)
+- Index Signatures -[Index Signatures](https://www.typescriptlang.org/docs/handbook/2/objects.html#index-signatures)
 
 ### Rotuer Use for v6 Routes, and Route more intuitive
 
@@ -194,3 +195,7 @@
   5. Droppalbe, Draggble has Props,droppableProps ,innerRef, draggableProps ,dragHandleProps
 
   6. give right props on right place !!
+
+### React.memo
+
+- Tell react do not rerender if it's not updating
