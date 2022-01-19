@@ -220,6 +220,11 @@
 
 - Allllways need motion.div, motion.span like this
 
+- Variants
+
+  - Take props out and put in Objects
+  - using varinats={your figure} add something
+
 - Steps
   - animate props, transition props, Inital Props !
     1. Animation dissapear and show up
@@ -228,4 +233,3 @@
        initial={{ scale: 0 }}
        animate={{ scale: 1, rotateZ: 360 }}
        '''
-    2.
