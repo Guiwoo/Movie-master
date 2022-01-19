@@ -224,12 +224,24 @@
 
   - Take props out and put in Objects
   - using varinats={your figure} add something
+  - Motion will spread out Inital and animate to children !!!
+  - Can handle children such as staggerChildren,delayChildren,etc..
+    - [Check here](https://www.framer.com/docs/transition/#orchestration)
 
 - Steps
   - animate props, transition props, Inital Props !
     1. Animation dissapear and show up
-       '''
+       ```
        transition={{ type: "spring", bounce: 0.25, delay: 0.3 }}
        initial={{ scale: 0 }}
        animate={{ scale: 1, rotateZ: 360 }}
-       '''
+       ```
+    2. Animation show circle as different time !
+    ```
+    transition: {
+      type: "spring",
+      duration: 0.5,
+      bounce: 0.5,
+      staggerChildren: 0.15,
+    },
+    ```
