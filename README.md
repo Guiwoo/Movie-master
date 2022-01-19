@@ -227,36 +227,49 @@
   - Motion will spread out Inital and animate to children !!!
   - Can handle children such as staggerChildren,delayChildren,etc..
     - [Check here](https://www.framer.com/docs/transition/#orchestration)
+  - [Motion Value](https://www.framer.com/docs/motionvalue/)
+  - [DragConstrain](https://www.framer.com/docs/gestures/#drag)
+  - [useTransForm](https://www.framer.com/docs/motionvalue/##usetransform)
+    - Can change background and bgImg as well ?? Nope needs Number value
+      - like rgb(255,255,255) this
+  - [useViewPortScroll](https://www.framer.com/docs/motionvalue/##useviewportscroll)
+    - Can Listen Y-Cordinate
 
 - animate props, transition props, Inital Props !
-  1. ##### Animation dissapear and show up
-     ```
-     transition={{ type: "spring", bounce: 0.25, delay: 0.3 }}
-     initial={{ scale: 0 }}
-     animate={{ scale: 1, rotateZ: 360 }}
-     ```
-  2. ##### Animation show circle as different time !
-     ```
-     transition: {
-       type: "spring",
-       duration: 0.5,
-       bounce: 0.5,
-       staggerChildren: 0.15,
-     },
-     ```
-  3. ###### Gesture and Drag
-     ```
-     <Bigger ref={biggerBoxRef}>
-         {/**Connect ref to dragConstraints  */}
-         <Box
-           drag
-           dragElastic={0} // Following mouse
-           dragSnapToOrigin // Mouse move to center
-           dragConstraints={biggerBoxRef} // Limit Movement
-           variants={BoxVar}
-           whileHover="hover"
-           whileTap="click"
-           whileDrag="drag"
-         />
-     </Bigger>
-     ```
+  1.  ##### Animation dissapear and show up
+      ```
+      transition={{ type: "spring", bounce: 0.25, delay: 0.3 }}
+      initial={{ scale: 0 }}
+      animate={{ scale: 1, rotateZ: 360 }}
+      ```
+  2.  ##### Animation show circle as different time !
+      ```
+      transition: {
+        type: "spring",
+        duration: 0.5,
+        bounce: 0.5,
+        staggerChildren: 0.15,
+      },
+      ```
+  3.  ###### Gesture and Drag
+      ```
+      <Bigger ref={biggerBoxRef}>
+          {/**Connect ref to dragConstraints  */}
+          <Box
+            drag
+            dragElastic={0} // Following mouse
+            dragSnapToOrigin // Mouse move to center
+            dragConstraints={biggerBoxRef} // Limit Movement
+            variants={BoxVar}
+            whileHover="hover"
+            whileTap="click"
+            whileDrag="drag"
+          />
+      </Bigger>
+      ```
+  4.  ##### Listen Scroll
+      ```
+      const x = useMotionValue(0); //Get X Value
+      const scale = useTransform(x, [-300, 0, 300], [2.5, 1, 0.5]);// Interpolation value
+      const { scrollYProgress } = useViewportScroll(); // Get Y value progess between 0 and 1
+      ```

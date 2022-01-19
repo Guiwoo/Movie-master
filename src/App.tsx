@@ -1,18 +1,15 @@
 import styled from "styled-components";
-import { motion, Variants } from "framer-motion";
-import { useRef } from "react";
+import {
+  motion,
+  useMotionValue,
+  useTransform,
+  useViewportScroll,
+} from "framer-motion";
+import { useEffect } from "react";
 
-const Wrapper = styled.div`
-  height: 100vh;
+const Wrapper = styled(motion.div)`
+  height: 200vh;
   width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const Bigger = styled.div`
-  width: 600px;
-  height: 600px;
-  background-color: rgba(200, 150, 200, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,29 +23,27 @@ const Box = styled(motion.div)`
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
 `;
 
-const BoxVar: Variants = {
-  hover: { scale: 1.5, rotateZ: 180 },
-  click: { scale: 1, borderRadius: "50%" },
-  drag: {},
-};
-
 function App() {
-  const biggerBoxRef = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const scale = useTransform(x, [-300, 0, 300], [2.5, 1, 0.5]); // Interpolation value
+  const gradient = useTransform(
+    x,
+    [-300, 0, 300],
+    [
+      `linear-gradient(to right, #b929b9, #cb6dfa, #ffffff)`,
+      `linear-gradient(to right, #2980b9, #6dd5fa, #ffffff)`,
+      `linear-gradient(to right, #b9aa29, #d0fa6d, #ffffff)`,
+    ]
+  );
+  const { scrollYProgress } = useViewportScroll();
+  const scale2 = useTransform(scrollYProgress, [0, 1], [1, 5]);
   return (
-    <Wrapper>
-      <Bigger ref={biggerBoxRef}>
-        {/**Connect ref to dragConstraints  */}
-        <Box
-          drag
-          dragElastic={0} // Following mouse
-          dragSnapToOrigin // Mouse move to center
-          dragConstraints={biggerBoxRef} // Limit Movement
-          variants={BoxVar}
-          whileHover="hover"
-          whileTap="click"
-          whileDrag="drag"
-        />
-      </Bigger>
+    <Wrapper style={{ background: gradient }}>
+      <Box
+        style={{ x, scale: scale2 }}
+        drag="x"
+        dragSnapToOrigin // Mouse move to center
+      />
     </Wrapper>
   );
 }
