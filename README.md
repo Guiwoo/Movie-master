@@ -228,20 +228,35 @@
   - Can handle children such as staggerChildren,delayChildren,etc..
     - [Check here](https://www.framer.com/docs/transition/#orchestration)
 
-- Steps
-  - animate props, transition props, Inital Props !
-    1. Animation dissapear and show up
-       ```
-       transition={{ type: "spring", bounce: 0.25, delay: 0.3 }}
-       initial={{ scale: 0 }}
-       animate={{ scale: 1, rotateZ: 360 }}
-       ```
-    2. Animation show circle as different time !
-    ```
-    transition: {
-      type: "spring",
-      duration: 0.5,
-      bounce: 0.5,
-      staggerChildren: 0.15,
-    },
-    ```
+- animate props, transition props, Inital Props !
+  1. ##### Animation dissapear and show up
+     ```
+     transition={{ type: "spring", bounce: 0.25, delay: 0.3 }}
+     initial={{ scale: 0 }}
+     animate={{ scale: 1, rotateZ: 360 }}
+     ```
+  2. ##### Animation show circle as different time !
+     ```
+     transition: {
+       type: "spring",
+       duration: 0.5,
+       bounce: 0.5,
+       staggerChildren: 0.15,
+     },
+     ```
+  3. ###### Gesture and Drag
+     ```
+     <Bigger ref={biggerBoxRef}>
+         {/**Connect ref to dragConstraints  */}
+         <Box
+           drag
+           dragElastic={0} // Following mouse
+           dragSnapToOrigin // Mouse move to center
+           dragConstraints={biggerBoxRef} // Limit Movement
+           variants={BoxVar}
+           whileHover="hover"
+           whileTap="click"
+           whileDrag="drag"
+         />
+     </Bigger>
+     ```
