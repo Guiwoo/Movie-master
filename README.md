@@ -236,6 +236,7 @@
     - Can Listen Y-Cordinate
 
 - animate props, transition props, Inital Props !
+
   1.  ##### Animation dissapear and show up
       ```
       transition={{ type: "spring", bounce: 0.25, delay: 0.3 }}
@@ -268,8 +269,24 @@
       </Bigger>
       ```
   4.  ##### Listen Scroll
+
       ```
       const x = useMotionValue(0); //Get X Value
       const scale = useTransform(x, [-300, 0, 300], [2.5, 1, 0.5]);// Interpolation value
       const { scrollYProgress } = useViewportScroll(); // Get Y value progess between 0 and 1
+      ```
+
+  5.  ##### Svg
+
+      - start from fill change color
+      - Storke means outline
+      - Duration Each animations
+
+      ```
+      transition={{
+            default: {
+              duration: 3,
+            },
+            fill: { duration: 2, delay: 2 },
+          }}
       ```
