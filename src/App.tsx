@@ -1,74 +1,31 @@
-import {
-  DragDropContext,
-  Droppable,
-  Draggable,
-  DropResult,
-} from "react-beautiful-dnd";
-import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { toDoState } from "./atom";
-import Board from "./component/Board";
-import DragCard from "./component/DragCard";
+import { motion } from "framer-motion";
 
 const Wrapper = styled.div`
+  height: 100vh;
+  width: 100vw;
   display: flex;
-  max-width: 480px;
-  width: 100%;
-  margin: 0 auto;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 `;
 
-const Boards = styled.div`
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+const Box = styled(motion.div)`
+  width: 200px;
+  height: 200px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
 `;
 
 function App() {
-  const [todo, setTodo] = useRecoilState(toDoState);
-  const onDragEnd = (info: DropResult) => {
-    const { destination, source, draggableId } = info;
-    if (!destination) return;
-    if (destination?.droppableId === source.droppableId) {
-      setTodo((allBoards) => {
-        const copy = [...allBoards[source.droppableId]];
-        const taskObj = copy[source.index];
-        copy.splice(source.index, 1);
-        copy.splice(destination?.index, 0, taskObj);
-        return {
-          ...allBoards,
-          [source.droppableId]: copy,
-        };
-      });
-    }
-    if (destination.droppableId !== source.droppableId) {
-      setTodo((prev) => {
-        const sourceBoard = [...prev[source.droppableId]];
-        const taskObj = sourceBoard[source.index];
-        const destinationBoard = [...prev[destination.droppableId]];
-        sourceBoard.splice(source.index, 1);
-        destinationBoard.splice(destination.index, 0, taskObj);
-        return {
-          ...prev,
-          [source.droppableId]: sourceBoard,
-          [destination.droppableId]: destinationBoard,
-        };
-      });
-    }
-  };
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Wrapper>
-        <Boards>
-          {Object.keys(todo).map((boardId) => (
-            <Board boardId={boardId} key={boardId} todos={todo[boardId]} />
-          ))}
-        </Boards>
-      </Wrapper>
-    </DragDropContext>
+    <Wrapper>
+      <Box
+        transition={{ type: "spring", bounce: 0.25, delay: 0.3 }}
+        initial={{ scale: 0 }}
+        animate={{ scale: 1, rotateZ: 360 }}
+      />
+    </Wrapper>
   );
 }
 

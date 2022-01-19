@@ -213,3 +213,19 @@
 ### React.memo
 
 - Tell react do not rerender if it's not updating
+
+### Animations
+
+- [Framer Motion](https://github.com/framer/motion)
+
+- Allllways need motion.div, motion.span like this
+
+- Steps
+  - animate props, transition props, Inital Props !
+    1. Animation dissapear and show up
+       '''
+       transition={{ type: "spring", bounce: 0.25, delay: 0.3 }}
+       initial={{ scale: 0 }}
+       animate={{ scale: 1, rotateZ: 360 }}
+       '''
+    2.

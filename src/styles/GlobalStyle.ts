@@ -9,7 +9,7 @@ ${reset}
 }
 body{
     font-family: 'Oswald', sans-serif;
-    background-color: ${props=>props.theme.bgColor};
+    background: linear-gradient(to right, #2980b9, #6dd5fa, #ffffff);
     color:${props=>props.theme.textColor}
 }
 a{
