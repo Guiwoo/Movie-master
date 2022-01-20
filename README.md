@@ -234,8 +234,11 @@
       - like rgb(255,255,255) this
   - [useViewPortScroll](https://www.framer.com/docs/motionvalue/##useviewportscroll)
     - Can Listen Y-Cordinate
+  - [AnimatePresence](https://www.framer.com/docs/animate-presence/)
+    - This will effects on When React Component Changed awesome !!!
+    - ex) button click show and dissaper
 
-- animate props, transition props, Inital Props !
+- animate props, transition props, Inital Props, End Props !
 
   1.  ##### Animation dissapear and show up
       ```
@@ -290,3 +293,5 @@
             fill: { duration: 2, delay: 2 },
           }}
       ```
+
+  6.  ##### Animate Presence Component
