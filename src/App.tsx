@@ -16,48 +16,62 @@ const Box = styled(motion.div)`
   background-color: rgba(245, 245, 245, 0.3);
   border-radius: 15px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  position: absolute;
 `;
 
-const svg = {
-  start: { pathLength: 0, fill: "rgba(255, 255, 255, 0)" },
-  end: {
-    fill: "rgba(255, 255, 255, 1)",
-    pathLength: 1,
-  },
-};
-
 const BoxVar = {
-  initial: {
+  invisible: {
+    x: 100,
     opacity: 0,
     scale: 0,
   },
   visible: {
+    x: 0,
     opacity: 1,
     scale: 1,
-    rotateZ: 360,
   },
-  leaving: {
+  exit: {
+    x: -300,
     opacity: 0,
     scale: 0,
   },
 };
 
+const Num = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 function App() {
-  const [showing, setShowing] = useState(false);
-  const toggle = () => setShowing(!showing);
+  const [visible, setVisible] = useState(0);
+
+  const thing = () => {
+    setTimeout(() => {
+      setVisible((prev) => prev + 1);
+    }, 2000);
+    return () => clearInterval();
+  };
+  useEffect(() => {
+    thing();
+  }, [visible]);
   return (
     <Wrapper>
       <AnimatePresence>
-        {showing ? (
-          <Box
-            variants={BoxVar}
-            initial="initial"
-            animate="visible"
-            exit="leaving"
-          />
-        ) : null}
+        {Num.map((i) =>
+          i === visible % 10 ? (
+            <Box
+              variants={BoxVar}
+              initial="invisible"
+              animate="visible"
+              exit="exit"
+              key={i}
+            >
+              {i}
+            </Box>
+          ) : null
+        )}
       </AnimatePresence>
-      <button onClick={toggle}>Click</button>
     </Wrapper>
   );
 }
