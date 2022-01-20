@@ -21,11 +21,12 @@ const Box = styled(motion.div)`
   align-items: center;
   font-size: 22px;
   position: absolute;
+  top: 150px;
 `;
 
 const BoxVar = {
   invisible: {
-    x: 100,
+    x: 300,
     opacity: 0,
     scale: 0,
   },
@@ -33,33 +34,31 @@ const BoxVar = {
     x: 0,
     opacity: 1,
     scale: 1,
+    transition: {
+      duration: 1,
+    },
   },
   exit: {
     x: -300,
     opacity: 0,
     scale: 0,
+    transition: {
+      duration: 1,
+    },
   },
 };
 
 const Num = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 function App() {
-  const [visible, setVisible] = useState(0);
-
-  const thing = () => {
-    setTimeout(() => {
-      setVisible((prev) => prev + 1);
-    }, 2000);
-    return () => clearInterval();
-  };
-  useEffect(() => {
-    thing();
-  }, [visible]);
+  const [visible, setVisible] = useState(1);
+  const nextPlease = () => setVisible((prev) => (prev === 10 ? 10 : prev + 1));
+  const prevPlease = () => setVisible((prev) => (prev === 1 ? 1 : prev - 1));
   return (
     <Wrapper>
       <AnimatePresence>
         {Num.map((i) =>
-          i === visible % 10 ? (
+          i === visible ? (
             <Box
               variants={BoxVar}
               initial="invisible"
@@ -72,6 +71,8 @@ function App() {
           ) : null
         )}
       </AnimatePresence>
+      <button onClick={nextPlease}>next</button>
+      <button onClick={prevPlease}>prev</button>
     </Wrapper>
   );
 }
