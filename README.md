@@ -248,6 +248,14 @@
 
 - exitBeforeEnter: Make wait finished previous item animations
 
+-[Layout](https://www.framer.com/docs/animate-shared-layout/#syncing-layout-animations)
+
+- When changed layout props ? automactically set a animation
+
+- [Shared Layout](https://www.framer.com/docs/animate-shared-layout/#animate-between-components)
+
+  - If components have a same layout id ? frammer connect those components
+
 1.  ##### Animation dissapear and show up
     ```
     transition={{ type: "spring", bounce: 0.25, delay: 0.3 }}
@@ -303,3 +311,44 @@
     ```
 
 6.  ##### Animate Presence Component
+    - Variants -
+    ```
+    const BoxVar = {
+    entry: (back: boolean) => ({
+    x: back ? -300 : 300,
+    opacity: 0,
+    scale: 0,
+    }),
+    center: {
+    x: 0,
+    opacity: 1,
+    scale: 1,
+    transition: {
+    duration: 1,
+    },
+    },
+    exit: (back: boolean) => ({
+    x: back ? 300 : -300,
+    opacity: 0,
+    scale: 0,
+    transition: {
+    duration: 1,
+    },
+    }),
+    };
+    ```
+    - Rendering -
+    ```
+    <AnimatePresence exitBeforeEnter custom={back}>
+          <Box
+            custom={back}
+            variants={BoxVar}
+            initial="entry"
+            animate="center"
+            exit="exit"
+            key={visible}
+          >
+            {visible}
+          </Box>
+        </AnimatePresence>
+    ```
