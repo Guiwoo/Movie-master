@@ -21,16 +21,16 @@ const Box = styled(motion.div)`
   align-items: center;
   font-size: 22px;
   position: absolute;
-  top: 150px;
+  top: 0;
 `;
 
 const BoxVar = {
-  invisible: {
-    x: 300,
+  entry: (back: boolean) => ({
+    x: back ? -300 : 300,
     opacity: 0,
     scale: 0,
-  },
-  visible: {
+  }),
+  center: {
     x: 0,
     opacity: 1,
     scale: 1,
@@ -38,41 +38,45 @@ const BoxVar = {
       duration: 1,
     },
   },
-  exit: {
-    x: -300,
+  exit: (back: boolean) => ({
+    x: back ? 300 : -300,
     opacity: 0,
     scale: 0,
     transition: {
       duration: 1,
     },
-  },
+  }),
 };
-
-const Num = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 function App() {
   const [visible, setVisible] = useState(1);
-  const nextPlease = () => setVisible((prev) => (prev === 10 ? 10 : prev + 1));
-  const prevPlease = () => setVisible((prev) => (prev === 1 ? 1 : prev - 1));
+  const [back, setBack] = useState(false);
+  const nextPlease = () => {
+    setBack(false);
+    setVisible((prev) => (prev === 10 ? 10 : prev + 1));
+  };
+  const prevPlease = () => {
+    setBack(true);
+    setVisible((prev) => (prev === 1 ? 1 : prev - 1));
+  };
   return (
     <Wrapper>
-      <AnimatePresence>
-        {Num.map((i) =>
-          i === visible ? (
-            <Box
-              variants={BoxVar}
-              initial="invisible"
-              animate="visible"
-              exit="exit"
-              key={i}
-            >
-              {i}
-            </Box>
-          ) : null
-        )}
+      <AnimatePresence exitBeforeEnter custom={back}>
+        <Box
+          custom={back}
+          variants={BoxVar}
+          initial="entry"
+          animate="center"
+          exit="exit"
+          key={visible}
+        >
+          {visible}
+        </Box>
       </AnimatePresence>
-      <button onClick={nextPlease}>next</button>
-      <button onClick={prevPlease}>prev</button>
+      <div>
+        <button onClick={nextPlease}>next</button>
+        <button onClick={prevPlease}>prev</button>
+      </div>
     </Wrapper>
   );
 }

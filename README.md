@@ -1,5 +1,9 @@
 # React MASTER
 
+### React
+
+- React Re-render if the key props is changed.!
+
 ### Styling
 
 - Styled Components
@@ -214,7 +218,7 @@
 
 - Tell react do not rerender if it's not updating
 
-### Animations
+### Framer Animation
 
 - [Framer Motion](https://github.com/framer/motion)
 
@@ -240,58 +244,62 @@
 
 - animate props, transition props, Inital Props, End Props !
 
-  1.  ##### Animation dissapear and show up
-      ```
-      transition={{ type: "spring", bounce: 0.25, delay: 0.3 }}
-      initial={{ scale: 0 }}
-      animate={{ scale: 1, rotateZ: 360 }}
-      ```
-  2.  ##### Animation show circle as different time !
-      ```
-      transition: {
-        type: "spring",
-        duration: 0.5,
-        bounce: 0.5,
-        staggerChildren: 0.15,
-      },
-      ```
-  3.  ###### Gesture and Drag
-      ```
-      <Bigger ref={biggerBoxRef}>
-          {/**Connect ref to dragConstraints  */}
-          <Box
-            drag
-            dragElastic={0} // Following mouse
-            dragSnapToOrigin // Mouse move to center
-            dragConstraints={biggerBoxRef} // Limit Movement
-            variants={BoxVar}
-            whileHover="hover"
-            whileTap="click"
-            whileDrag="drag"
-          />
-      </Bigger>
-      ```
-  4.  ##### Listen Scroll
+- [Custom](https://www.framer.com/docs/component/###custom)
 
-      ```
-      const x = useMotionValue(0); //Get X Value
-      const scale = useTransform(x, [-300, 0, 300], [2.5, 1, 0.5]);// Interpolation value
-      const { scrollYProgress } = useViewportScroll(); // Get Y value progess between 0 and 1
-      ```
+- exitBeforeEnter: Make wait finished previous item animations
 
-  5.  ##### Svg
+1.  ##### Animation dissapear and show up
+    ```
+    transition={{ type: "spring", bounce: 0.25, delay: 0.3 }}
+    initial={{ scale: 0 }}
+    animate={{ scale: 1, rotateZ: 360 }}
+    ```
+2.  ##### Animation show circle as different time !
+    ```
+    transition: {
+      type: "spring",
+      duration: 0.5,
+      bounce: 0.5,
+      staggerChildren: 0.15,
+    },
+    ```
+3.  ###### Gesture and Drag
+    ```
+    <Bigger ref={biggerBoxRef}>
+        {/**Connect ref to dragConstraints  */}
+        <Box
+          drag
+          dragElastic={0} // Following mouse
+          dragSnapToOrigin // Mouse move to center
+          dragConstraints={biggerBoxRef} // Limit Movement
+          variants={BoxVar}
+          whileHover="hover"
+          whileTap="click"
+          whileDrag="drag"
+        />
+    </Bigger>
+    ```
+4.  ##### Listen Scroll
 
-      - start from fill change color
-      - Storke means outline
-      - Duration Each animations
+    ```
+    const x = useMotionValue(0); //Get X Value
+    const scale = useTransform(x, [-300, 0, 300], [2.5, 1, 0.5]);// Interpolation value
+    const { scrollYProgress } = useViewportScroll(); // Get Y value progess between 0 and 1
+    ```
 
-      ```
-      transition={{
-            default: {
-              duration: 3,
-            },
-            fill: { duration: 2, delay: 2 },
-          }}
-      ```
+5.  ##### Svg
 
-  6.  ##### Animate Presence Component
+    - start from fill change color
+    - Storke means outline
+    - Duration Each animations
+
+    ```
+    transition={{
+          default: {
+            duration: 3,
+          },
+          fill: { duration: 2, delay: 2 },
+        }}
+    ```
+
+6.  ##### Animate Presence Component
