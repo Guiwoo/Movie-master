@@ -10,8 +10,18 @@ const Wrapper = styled(motion.div)`
   align-items: center;
 `;
 
+const Gird = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 50%;
+  gap: 20px;
+  div:first-child,
+  div:last-child {
+    grid-column: span 2;
+  }
+`;
+
 const Box = styled(motion.div)`
-  width: 200px;
   height: 200px;
   background-color: rgba(245, 245, 245, 0.3);
   border-radius: 15px;
@@ -21,21 +31,44 @@ const Box = styled(motion.div)`
   align-items: center;
 `;
 
-const Circle = styled(motion.div)`
-  background-color: #ff5e57;
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
+const Overlay = styled(motion.div)`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 function App() {
-  const [click, setClick] = useState(false);
-  const toggleClicked = () => setClick(!click);
+  const [clickId, setClickId] = useState<null | string>(null);
+
   return (
-    <Wrapper onClick={toggleClicked}>
-      <Box>{!click ? <Circle layoutId="circle" /> : null}</Box>
-      <Box>{click ? <Circle layoutId="circle" /> : null}</Box>
+    <Wrapper>
+      <Gird>
+        {["1", "2", "3", "4"].map((n) => (
+          <Box onClick={() => setClickId(n)} key={n} layoutId={n} />
+        ))}
+      </Gird>
+      <AnimatePresence>
+        {clickId ? (
+          <Overlay
+            onClick={() => setClickId(null)}
+            initial={{ backgroundColor: "rgba(0,0,0,0)" }}
+            animate={{ backgroundColor: "rgba(0,0,0,0.9)" }}
+            exit={{ backgroundColor: "rgba(0,0,0,0)" }}
+          >
+            <Box
+              layoutId={clickId}
+              style={{
+                width: 200,
+                height: 200,
+                backgroundColor: "rgba(255,255,255,0.8)",
+              }}
+            />
+          </Overlay>
+        ) : null}
+      </AnimatePresence>
     </Wrapper>
   );
 }

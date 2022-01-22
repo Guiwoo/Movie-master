@@ -311,7 +311,9 @@
     ```
 
 6.  ##### Animate Presence Component
+
     - Variants -
+
     ```
     const BoxVar = {
     entry: (back: boolean) => ({
@@ -337,7 +339,9 @@
     }),
     };
     ```
+
     - Rendering -
+
     ```
     <AnimatePresence exitBeforeEnter custom={back}>
           <Box
@@ -351,4 +355,32 @@
             {visible}
           </Box>
         </AnimatePresence>
+    ```
+
+7.  ##### Animate Presence Extra..
+    ```
+    <Gird>
+        {["1", "2", "3", "4"].map((n) => (
+          <Box onClick={() => setClickId(n)} key={n} layoutId={n} />
+        ))}
+      </Gird>
+      <AnimatePresence>
+        {clickId ? (
+          <Overlay
+            onClick={() => setClickId(null)}
+            initial={{ backgroundColor: "rgba(0,0,0,0)" }}
+            animate={{ backgroundColor: "rgba(0,0,0,0.9)" }}
+            exit={{ backgroundColor: "rgba(0,0,0,0)" }}
+          >
+            <Box
+              layoutId={clickId}
+              style={{
+                width: 200,
+                height: 200,
+                backgroundColor: "rgba(255,255,255,0.8)",
+              }}
+            />
+          </Overlay>
+        ) : null}
+      </AnimatePresence>s
     ```
