@@ -1,16 +1,15 @@
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { motion, useAnimation, useViewportScroll } from "framer-motion";
 import { Link, useMatch } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const SHeader = styled.nav`
+const SHeader = styled(motion.nav)`
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: fixed;
   width: 100%;
   top: 0;
-  background-color: ${(props) => props.theme.black.darker};
   height: 80px;
   font-size: 18px;
   color: white;
@@ -95,13 +94,43 @@ const Input = styled(motion.input)`
   border: 1px solid ${(props) => props.theme.white.lighter};
 `;
 
+const NavVar = {
+  top: {
+    backgroundColor: "rgba(0,0,0,0)",
+  },
+  scroll: {
+    backgroundColor: "rgba(0,0,0,1)",
+  },
+};
+
 const Header = () => {
   const HomeMatch = useMatch("/");
   const TvMatch = useMatch("/Tv");
   const [search, setSearch] = useState(false);
-  const toggleSearch = () => setSearch((prev) => !prev);
+  const inputAnimation = useAnimation();
+  const navAnimation = useAnimation();
+  const { scrollY } = useViewportScroll();
+  const toggleSearch = () => {
+    if (search) {
+      inputAnimation.start({
+        scaleX: 0,
+      });
+    } else {
+      inputAnimation.start({ scaleX: 1 });
+    }
+    setSearch((prev) => !prev);
+  };
+  useEffect(() => {
+    scrollY.onChange(() => {
+      if (scrollY.get() > 80) {
+        navAnimation.start("scroll");
+      } else {
+        navAnimation.start("top");
+      }
+    });
+  }, [scrollY]);
   return (
-    <SHeader>
+    <SHeader variants={NavVar} animate={navAnimation} initial={"top"}>
       <Col>
         <Logo
           variants={logoVar}
@@ -151,8 +180,9 @@ const Header = () => {
             ></path>
           </motion.svg>
           <Input
+            animate={inputAnimation}
+            initial={{ scaleX: 0 }}
             transition={{ type: "linear" }}
-            animate={{ scaleX: search ? 1 : 0 }}
             placeholder="Search ..."
           />
         </Search>
