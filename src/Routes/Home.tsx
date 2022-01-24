@@ -2,7 +2,12 @@ import { useQuery } from "react-query";
 import { getMovies, IGetMovieResult } from "../api";
 import styled from "styled-components";
 import { makeImgPath } from "../utils";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useViewportScroll,
+  MotionValue,
+} from "framer-motion";
 import { useState } from "react";
 import { useMatch, useNavigate } from "react-router";
 
@@ -18,7 +23,7 @@ const Loader = styled.div`
 `;
 
 const Banner = styled.div<{ bgPhoto: string }>`
-  height: 100vh;
+  height: 99vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -115,6 +120,24 @@ const InfoVar = {
   },
 };
 
+const Overlay = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+`;
+
+const MovieClick = styled(motion.div)<{ scrollY: MotionValue<number> }>`
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+`;
+
 const Home = () => {
   const navigation = useNavigate();
   const { data, isLoading } = useQuery<IGetMovieResult>(
@@ -137,6 +160,9 @@ const Home = () => {
     navigation(`/movies/${movieId}`);
   };
   const movieMatch = useMatch("/movies/:movieId");
+  const onClickOverLay = () => navigation("/");
+  const { scrollY } = useViewportScroll();
+
   return (
     <Wrapper>
       {isLoading ? (
@@ -184,23 +210,21 @@ const Home = () => {
               </Row>
             </AnimatePresence>
           </Slider>
-          {movieMatch ? (
-            <AnimatePresence>
-              <motion.div
-                layoutId={movieMatch.params.movieId + ""}
-                style={{
-                  position: "absolute",
-                  width: "60%",
-                  height: "60%",
-                  backgroundColor: "tomato",
-                  top: "200px",
-                  right: 0,
-                  left: 0,
-                  margin: "0 auto",
-                }}
-              ></motion.div>
-            </AnimatePresence>
-          ) : null}
+          <AnimatePresence>
+            {movieMatch ? (
+              <>
+                <Overlay
+                  onClick={onClickOverLay}
+                  exit={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                />
+                <MovieClick
+                  scrollY={scrollY}
+                  layoutId={movieMatch.params.movieId + ""}
+                ></MovieClick>
+              </>
+            ) : null}
+          </AnimatePresence>
         </>
       )}
     </Wrapper>
