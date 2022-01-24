@@ -6,6 +6,8 @@
   - router-setting, How to run code animation,animations with frammer
   - [useAnimation Ref](https://www.framer.com/docs/animation/#component-animation-controls)
   - [useViewportScroll Ref](https://www.framer.com/docs/motionvalue/###useviewportscroll)
+  - [useSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)
+    - Get a specific query from url
 
 ### React
 
