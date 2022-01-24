@@ -74,7 +74,7 @@ const logoVar = {
     fillOpacity: 1,
   },
   active: {
-    fillOpacity: [0, 1, 0, 1],
+    fillOpacity: [0, 1],
     transition: {
       repeat: Infinity,
     },
