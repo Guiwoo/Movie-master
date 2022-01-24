@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { motion, useAnimation, useViewportScroll } from "framer-motion";
-import { Link, useMatch } from "react-router-dom";
+import { Link, useMatch, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const SHeader = styled(motion.nav)`
@@ -74,7 +74,7 @@ const logoVar = {
     fillOpacity: 1,
   },
   active: {
-    fillOpacity: [0, 1],
+    fillOpacity: [0, 1, 0],
     transition: {
       repeat: Infinity,
     },
@@ -129,13 +129,16 @@ const Header = () => {
       }
     });
   }, [scrollY]);
+  const navigation = useNavigate();
   return (
     <SHeader variants={NavVar} animate={navAnimation} initial={"top"}>
       <Col>
         <Logo
+          onClick={() => navigation("/")}
           variants={logoVar}
           initial="normal"
           whileHover="active"
+          exit="normal"
           xmlns="http://www.w3.org/2000/svg"
           width="1024"
           height="276.742"

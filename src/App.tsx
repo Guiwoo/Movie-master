@@ -4,12 +4,16 @@ import Home from "./Routes/Home";
 import Search from "./Routes/Search";
 import Tv from "./Routes/Tv";
 
+const Thing = () => <h1>HOit</h1>;
+
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path={"/"} element={<Home />}>
+          <Route path={"movies/:id"} element={<Home />} />
+        </Route>
         <Route path="/tv" element={<Tv />} />
         <Route path="/search" element={<Search />} />
       </Routes>
