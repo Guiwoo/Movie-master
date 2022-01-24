@@ -88,6 +88,30 @@ const BoxVar = {
     },
   },
 };
+const Info = styled(motion.div)`
+  padding: 10px;
+  background-color: ${(props) => props.theme.black.lighter};
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  h4 {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+  }
+`;
+
+const InfoVar = {
+  hover: {
+    opacity: 1,
+    transition: {
+      delay: 0.4,
+      duration: 0.3,
+      type: "twin",
+    },
+  },
+};
 
 const Home = () => {
   const { data, isLoading } = useQuery<IGetMovieResult>(
@@ -143,7 +167,11 @@ const Home = () => {
                       whileHover="hover"
                       key={movie.id}
                       $bgPhoto={makeImgPath(movie.backdrop_path, "w500")}
-                    />
+                    >
+                      <Info variants={InfoVar}>
+                        <h4>{movie.title}</h4>
+                      </Info>
+                    </Box>
                   ))}
               </Row>
             </AnimatePresence>
