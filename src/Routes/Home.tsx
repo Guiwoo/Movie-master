@@ -131,11 +131,37 @@ const Overlay = styled(motion.div)`
 
 const MovieClick = styled(motion.div)<{ scrollY: MotionValue<number> }>`
   position: absolute;
-  width: 60%;
-  height: 60%;
+  width: 40vw;
+  height: 80vh;
   right: 0;
   left: 0;
   margin: 0 auto;
+  top: ${(props) => props.scrollY.get() + 150}px;
+  background-color: ${(props) => props.theme.black.lighter};
+  border-radius: 15px;
+  overflow: hidden;
+`;
+
+const MovieCover = styled.div`
+  width: 100%;
+  height: 40%;
+  background-size: cover;
+  background-position: center center;
+`;
+const MTitle = styled.h2`
+  color: ${(props) => props.theme.white.lighter};
+  padding: 10px;
+  font-size: 35px;
+  font-weight: 500;
+  position: relative;
+  top: -32px;
+`;
+
+const MOverView = styled.p`
+  padding: 20px;
+  color: ${(props) => props.theme.white.lighter};
+  position: relative;
+  top: -32px;
 `;
 
 const Home = () => {
@@ -162,7 +188,11 @@ const Home = () => {
   const movieMatch = useMatch("/movies/:movieId");
   const onClickOverLay = () => navigation("/");
   const { scrollY } = useViewportScroll();
-
+  const clickedMovie =
+    movieMatch?.params.movieId &&
+    data?.results.find(
+      (movie) => String(movie.id) === movieMatch.params.movieId
+    );
   return (
     <Wrapper>
       {isLoading ? (
@@ -221,7 +251,22 @@ const Home = () => {
                 <MovieClick
                   scrollY={scrollY}
                   layoutId={movieMatch.params.movieId + ""}
-                ></MovieClick>
+                >
+                  {clickedMovie && (
+                    <>
+                      <MovieCover
+                        style={{
+                          backgroundImage: `linear-gradient(to top,black, transparent), url(${makeImgPath(
+                            clickedMovie.backdrop_path,
+                            "w500"
+                          )})`,
+                        }}
+                      ></MovieCover>
+                      <MTitle>{clickedMovie.title}</MTitle>
+                      <MOverView>{clickedMovie.overview}</MOverView>
+                    </>
+                  )}
+                </MovieClick>
               </>
             ) : null}
           </AnimatePresence>
