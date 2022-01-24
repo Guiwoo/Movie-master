@@ -48,6 +48,7 @@ const Row = styled(motion.div)`
   gap: 10px;
   position: absolute;
   width: 100%;
+  padding: 0 20px;
 `;
 
 const Box = styled(motion.div)<{ $bgPhoto: string }>`
@@ -55,6 +56,12 @@ const Box = styled(motion.div)<{ $bgPhoto: string }>`
   background-image: url(${(props) => props.$bgPhoto});
   background-size: cover;
   background-position: center;
+  &:first-child {
+    transform-origin: center left;
+  }
+  &:last-child {
+    transform-origin: center right;
+  }
 `;
 
 const rowVar = {
@@ -66,6 +73,21 @@ const rowVar = {
 };
 
 const offset = 6;
+
+const BoxVar = {
+  normal: {
+    scale: 1,
+  },
+  hover: {
+    scale: 1.5,
+    y: -50,
+    transition: {
+      delay: 0.4,
+      duration: 0.3,
+      type: "twin",
+    },
+  },
+};
 
 const Home = () => {
   const { data, isLoading } = useQuery<IGetMovieResult>(
@@ -113,6 +135,12 @@ const Home = () => {
                   .slice(offset * index, offset * index + offset)
                   .map((movie) => (
                     <Box
+                      transition={{
+                        type: "twin",
+                      }}
+                      variants={BoxVar}
+                      initial="normal"
+                      whileHover="hover"
                       key={movie.id}
                       $bgPhoto={makeImgPath(movie.backdrop_path, "w500")}
                     />
