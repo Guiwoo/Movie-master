@@ -23,7 +23,6 @@ const Loader = styled.div`
 
 const Slider = styled(motion.div)`
   position: relative;
-  top: -100px;
 `;
 
 const Row = styled(motion.div)`

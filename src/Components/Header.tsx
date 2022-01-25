@@ -17,6 +17,7 @@ const SHeader = styled(motion.nav)`
   color: white;
   padding: 20px 60px;
   font-weight: 600;
+  z-index: 99;
 `;
 
 const Col = styled.div`
