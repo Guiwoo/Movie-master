@@ -393,3 +393,7 @@
         ) : null}
       </AnimatePresence>s
     ```
+
+## MyStyle
+
+- [x] Logo and enter screen Fixed

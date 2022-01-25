@@ -10,37 +10,15 @@ import {
 } from "framer-motion";
 import { useState } from "react";
 import { useMatch, useNavigate } from "react-router";
+import Banner from "../Components/Home/Banner";
 
-const Wrapper = styled.div`
-  background-color: black;
-`;
+const Wrapper = styled(motion.div)``;
 
 const Loader = styled.div`
   height: 20vh;
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const Banner = styled.div<{ bgPhoto: string }>`
-  height: 99vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 60px;
-  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
-    url(${(props) => props.bgPhoto});
-  background-size: cover;
-`;
-
-const Title = styled.h2`
-  font-size: 48px;
-  margin-bottom: 20px;
-  font-weight: 600;
-`;
-const OverView = styled.span`
-  font-size: 22px;
-  width: 50%;
 `;
 
 const Slider = styled(motion.div)`
@@ -198,79 +176,80 @@ const Home = () => {
       {isLoading ? (
         <Loader>Loading...</Loader>
       ) : (
-        <>
-          <Banner
-            onClick={increase}
-            bgPhoto={makeImgPath(data?.results[0].backdrop_path || "")}
-          >
-            <Title>{data?.results[0].title}</Title>
-            <OverView>{data?.results[0].overview}</OverView>
-          </Banner>
-          <Slider>
-            <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
-              <Row
-                variants={rowVar}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                transition={{ type: "tween", duration: 1 }}
-                key={index}
-              >
-                {data?.results
-                  .slice(1)
-                  .slice(offset * index, offset * index + offset)
-                  .map((movie) => (
-                    <Box
-                      transition={{
-                        type: "twin",
-                      }}
-                      layoutId={movie.id + ""}
-                      variants={BoxVar}
-                      initial="normal"
-                      whileHover="hover"
-                      onClick={() => onBoxClicked(movie.id)}
-                      key={movie.id}
-                      $bgPhoto={makeImgPath(movie.backdrop_path, "w500")}
-                    >
-                      <Info variants={InfoVar}>
-                        <h4>{movie.title}</h4>
-                      </Info>
-                    </Box>
-                  ))}
-              </Row>
-            </AnimatePresence>
-          </Slider>
-          <AnimatePresence>
-            {movieMatch ? (
-              <>
-                <Overlay
-                  onClick={onClickOverLay}
-                  exit={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                />
-                <MovieClick
-                  scrollY={scrollY}
-                  layoutId={movieMatch.params.movieId + ""}
+        data && (
+          <>
+            <Banner
+              title={data?.results[0].title}
+              overview={data?.results[0].overview}
+              id={data?.results[0].id}
+              bgPhoto={makeImgPath(data?.results[0].backdrop_path || "")}
+            />
+            <Slider>
+              <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
+                <Row
+                  variants={rowVar}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  transition={{ type: "tween", duration: 1 }}
+                  key={index}
                 >
-                  {clickedMovie && (
-                    <>
-                      <MovieCover
-                        style={{
-                          backgroundImage: `linear-gradient(to top,black, transparent), url(${makeImgPath(
-                            clickedMovie.backdrop_path,
-                            "w500"
-                          )})`,
+                  {data?.results
+                    .slice(1)
+                    .slice(offset * index, offset * index + offset)
+                    .map((movie) => (
+                      <Box
+                        transition={{
+                          type: "twin",
                         }}
-                      ></MovieCover>
-                      <MTitle>{clickedMovie.title}</MTitle>
-                      <MOverView>{clickedMovie.overview}</MOverView>
-                    </>
-                  )}
-                </MovieClick>
-              </>
-            ) : null}
-          </AnimatePresence>
-        </>
+                        layoutId={movie.id + ""}
+                        variants={BoxVar}
+                        initial="normal"
+                        whileHover="hover"
+                        onClick={() => onBoxClicked(movie.id)}
+                        key={movie.id}
+                        $bgPhoto={makeImgPath(movie.backdrop_path, "w500")}
+                      >
+                        <Info variants={InfoVar}>
+                          <h4>{movie.title}</h4>
+                        </Info>
+                      </Box>
+                    ))}
+                </Row>
+              </AnimatePresence>
+            </Slider>
+            <AnimatePresence>
+              {movieMatch ? (
+                <>
+                  <Overlay
+                    onClick={onClickOverLay}
+                    exit={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                  />
+                  <MovieClick
+                    scrollY={scrollY}
+                    layoutId={movieMatch.params.movieId + ""}
+                  >
+                    {clickedMovie && (
+                      <>
+                        <MovieCover
+                          style={{
+                            backgroundImage: `linear-gradient(to top,black, transparent), url(${makeImgPath(
+                              clickedMovie.backdrop_path,
+                              "w500"
+                            )})`,
+                          }}
+                        ></MovieCover>
+                        <MTitle>{clickedMovie.title}</MTitle>
+                        <MOverView>{clickedMovie.overview}</MOverView>
+                      </>
+                    )}
+                  </MovieClick>
+                </>
+              ) : null}
+            </AnimatePresence>
+          </>
+        )
       )}
     </Wrapper>
   );

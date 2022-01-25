@@ -9,7 +9,7 @@ ${reset}
 }
 body{
     font-weight: 300;
-    font-family:"Source Sans Pro", sans-serif;
+    font-family:'Oswald', sans-serif;
     color:${props=> props.theme.white.darker};
     line-height: 1.2;
     background-color: black;
