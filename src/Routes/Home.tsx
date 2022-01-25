@@ -147,7 +147,7 @@ const Home = () => {
   const { data, isLoading } = useQuery<IGetMovieResult>(
     ["movies", "nowPlaying"],
     getMovies
-  ); // the data will come 19 movies
+  );
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const increase = () => {

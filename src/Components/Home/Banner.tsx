@@ -1,4 +1,6 @@
+import { useQuery } from "react-query";
 import styled from "styled-components";
+import { homeVideo } from "../../api";
 
 const SBanner = styled.div<{ bgPhoto: string }>`
   height: 99vh;
@@ -29,6 +31,10 @@ type BannerProps = {
 };
 
 const Banner: React.FC<BannerProps> = ({ title, overview, id, bgPhoto }) => {
+  const { data, isLoading } = useQuery(["video", id], () => homeVideo(id));
+  if (data) {
+    console.log(data?.results[0].key);
+  }
   return (
     <SBanner bgPhoto={bgPhoto}>
       <Title>{title}</Title>
