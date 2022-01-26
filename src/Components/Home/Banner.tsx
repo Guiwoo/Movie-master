@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import { homeVideo } from "../../api";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const SBanner = styled.div<{ bgPhoto: string }>`
   height: 99vh;
@@ -82,6 +82,9 @@ const Banner: React.FC<BannerProps> = ({ title, overview, id, bgPhoto }) => {
       setMove(false);
     }, 5000);
   };
+  useEffect(() => {
+    return () => mouseMoving();
+  }, []);
   return (
     <>
       {isLoading ? (
@@ -95,7 +98,7 @@ const Banner: React.FC<BannerProps> = ({ title, overview, id, bgPhoto }) => {
             <YouTube
               onMouseMove={mouseMoving}
               style={{ pointerEvents: "auto" }}
-              src={`https://www.youtube.com/embed/${data?.results[0].key}?controls=1&rel=0&autoplay=1&mute=1&enablejsapi=1&loop=1&playlist=${data?.results[0].key}`}
+              src={`https://www.youtube-nocookie.com/embed/${data?.results[0].key}?controls=1&rel=0&autoplay=1&mute=1&enablejsapi=1&loop=1&playlist=${data?.results[0].key}`}
               allow="autoplay"
               allowFullScreen
             ></YouTube>

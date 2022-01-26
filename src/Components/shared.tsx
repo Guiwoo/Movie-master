@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
 type MainTitleProps = {
@@ -20,13 +21,13 @@ const StatBoxes = styled.div`
   padding-right: 20px;
   justify-content: flex-end;
 `;
-const StatBox = styled.div<{ current: boolean }>`
+const StatBox = styled(motion.div)<{ current: string }>`
   background-color: ${(props) => props.theme.white.darker};
-  margin: 0 2px;
+  margin: 0 4px;
   width: 8px;
   height: 4px;
   background-color: ${(props) =>
-    props.current ? "red" : props.theme.black.darker};
+    props.current === "current" ? props.theme.red : props.theme.black.darker};
   margin-top: -10px;
   margin-bottom: 10px;
 `;
@@ -42,7 +43,11 @@ export const StatusBox = ({ maxIndex, index }: BoxProps) => {
   return (
     <StatBoxes>
       {sample.map((e) => (
-        <StatBox key={e} current={e === index}></StatBox>
+        <StatBox
+          layoutId="movieNext"
+          key={e}
+          current={e === index ? "current" : "other"}
+        ></StatBox>
       ))}
     </StatBoxes>
   );

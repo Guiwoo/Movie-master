@@ -1,3 +1,3 @@
-const Movie = () => <h1>Movie</h1>;
+const Movie = () => <h1 style={{ height: "200vh" }}>Movie</h1>;
 
 export default Movie;

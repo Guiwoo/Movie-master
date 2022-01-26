@@ -104,7 +104,7 @@ const Header = () => {
   const [search, setSearch] = useState(false);
   const inputAnimation = useAnimation();
   const navAnimation = useAnimation();
-  const { scrollY } = useViewportScroll();
+  const { scrollY: scrolly } = useViewportScroll();
   const toggleSearch = () => {
     if (search) {
       inputAnimation.start({
@@ -116,14 +116,14 @@ const Header = () => {
     setSearch((prev) => !prev);
   };
   useEffect(() => {
-    scrollY.onChange(() => {
-      if (scrollY.get() > 80) {
+    scrolly.onChange(() => {
+      if (scrolly.get() > 80) {
         navAnimation.start("scroll");
       } else {
         navAnimation.start("top");
       }
     });
-  }, [scrollY]);
+  }, [scrolly]);
   const navigation = useNavigate();
   const { register, handleSubmit } = useForm<IForm>();
   const onValid = (data: IForm) => {
