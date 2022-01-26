@@ -188,7 +188,10 @@ const Home = () => {
               bgPhoto={makeImgPath(data?.results[0].backdrop_path || "")}
             />
             <TitleBox increase={increase} header={"Trending Movie"} />
-            <StatusBox />
+            <StatusBox
+              maxIndex={Math.floor((data.results.length - 1) / 6)}
+              index={index}
+            />
             <Slider>
               <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
                 <Row
