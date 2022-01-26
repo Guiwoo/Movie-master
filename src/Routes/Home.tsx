@@ -11,6 +11,10 @@ import {
 import { useState } from "react";
 import { useMatch, useNavigate } from "react-router";
 import Banner from "../Components/Home/Banner";
+import { MainTitle, StatusBox } from "../Components/shared";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { TitleBox } from "../Components/Home/TitleBox";
 
 const Wrapper = styled(motion.div)``;
 
@@ -183,6 +187,8 @@ const Home = () => {
               id={data?.results[0].id}
               bgPhoto={makeImgPath(data?.results[0].backdrop_path || "")}
             />
+            <TitleBox increase={increase} header={"Trending Movie"} />
+            <StatusBox />
             <Slider>
               <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
                 <Row

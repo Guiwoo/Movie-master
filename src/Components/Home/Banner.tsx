@@ -1,13 +1,7 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faExclamationCircle,
-  faPlay,
-  faPause,
-} from "@fortawesome/free-solid-svg-icons";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import { homeVideo } from "../../api";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const SBanner = styled.div<{ bgPhoto: string }>`
   height: 99vh;
@@ -46,14 +40,12 @@ const YouTube = styled.iframe`
   left: 0;
 `;
 const VideoBox = styled.div`
-  z-index: 10;
   position: relative;
   padding-top: 25px;
-  padding-bottom: 56.25%;
+  padding-bottom: 50%;
 `;
 const VideoInfo = styled.div`
   position: absolute;
-  z-index: 11;
   top: 58%;
   left: 1%;
 `;
@@ -76,12 +68,6 @@ type BannerProps = {
 
 const Banner: React.FC<BannerProps> = ({ title, overview, id, bgPhoto }) => {
   const { data, isLoading } = useQuery(["video", id], () => homeVideo(id));
-  const onPlayBtn = (event: React.MouseEvent<HTMLElement>) => {
-    event.preventDefault();
-    const frames = document.querySelector("iframe");
-    const videos = document.querySelector("video");
-    console.log(frames?.contentWindow?.document.querySelector("video"));
-  };
   let moveTrack: any = null;
   const [move, setMove] = useState(false);
   const mouseMoving = () => {
