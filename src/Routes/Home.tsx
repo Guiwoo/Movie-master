@@ -98,6 +98,9 @@ const Home = () => {
     data?.results.find(
       (movie) => String(movie.id) === movieMatch.params.movieId
     );
+  const onBoxClicked = (movieId: number) => {
+    navigation(`/movies/${movieId}`);
+  };
   return (
     <Wrapper>
       {isLoading ? (
@@ -110,18 +113,20 @@ const Home = () => {
               overview={data?.results[0].overview}
               id={data?.results[0].id}
               bgPhoto={makeImgPath(data?.results[0].backdrop_path || "")}
+              onBoxClicked={onBoxClicked}
             />
             <TitleBox increase={increase} header={"Trending Movie"} />
             <StatusBox
               maxIndex={Math.floor((data.results.length - 1) / 6)}
               index={index}
             />
-            {/* <Slider
+            <Slider
               data={data}
               offset={offset}
               toggleLeaving={toggleLeaving}
               index={index}
-            /> */}
+              onBoxClicked={onBoxClicked}
+            />
             <AnimatePresence>
               {movieMatch ? (
                 <>

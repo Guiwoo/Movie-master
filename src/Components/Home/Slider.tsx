@@ -80,6 +80,7 @@ const InfoVar = {
 
 type SliderProp = {
   toggleLeaving: () => void;
+  onBoxClicked: (movieId: number) => void;
   index: number;
   offset: number;
   data: IGetMovieResult;
@@ -90,11 +91,8 @@ const Slider: React.FC<SliderProp> = ({
   toggleLeaving,
   index,
   offset,
+  onBoxClicked,
 }) => {
-  const navigation = useNavigate();
-  const onBoxClicked = (movieId: number) => {
-    navigation(`/movies/${movieId}`);
-  };
   return (
     <SSlider>
       <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
@@ -114,10 +112,10 @@ const Slider: React.FC<SliderProp> = ({
                 transition={{
                   type: "twin",
                 }}
-                layoutId={movie.id + ""}
                 variants={BoxVar}
                 initial="normal"
                 whileHover="hover"
+                layoutId={movie.id + ""}
                 onClick={() => onBoxClicked(movie.id)}
                 key={movie.id}
                 $bgPhoto={makeImgPath(movie.backdrop_path, "w500")}
