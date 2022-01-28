@@ -25,6 +25,13 @@ export const getMovies = () => {
         (response)=>response.json()
     )
 }
+
+export const getMoviesDetail = (id:number) => {
+    return fetch(`${BASE_PATH}/movie/${id}?api_key=${API_KEY}&language=en-US`).then(
+        (response)=>response.json()
+    )
+}
+
 export const homeVideo = (id:number) => {
     return fetch(`${BASE_PATH}/movie/${id}/videos?api_key=${API_KEY}&language=en-US`).then(
         (response)=>response.json()

@@ -1,17 +1,18 @@
 import { motion, MotionValue, useViewportScroll } from "framer-motion";
+import { useQuery } from "react-query";
 import { PathMatch } from "react-router";
 import styled from "styled-components";
-import { IMovie } from "../api";
+import { getMoviesDetail, IMovie } from "../api";
 import { makeImgPath } from "../utils";
 
-const MovieClick = styled(motion.div)<{ scrollY: MotionValue<number> }>`
+const MovieClick = styled(motion.div)<{ scrolly: MotionValue<number> }>`
   position: absolute;
   width: 60vw;
   height: 99vh;
   right: 0;
   left: 0;
   margin: 0 auto;
-  top: ${(props) => props.scrollY.get() + 100}px;
+  top: ${(props) => props.scrolly.get() + 100}px;
   background-color: ${(props) => props.theme.black.lighter};
   border-radius: 15px;
   overflow: hidden;
@@ -44,15 +45,20 @@ const VideoMovie = styled.iframe``;
 type ClickToShowProp = {
   movieMatch: PathMatch<"movieId"> | null;
   clickedMovie: "" | IMovie | undefined;
+  id: string | undefined;
 };
 
 const ClickToShow: React.FC<ClickToShowProp> = ({
   movieMatch,
   clickedMovie,
+  id,
 }) => {
   const { scrollY: scrolly } = useViewportScroll();
+  const { data, isLoading } = useQuery(["detail", id], () =>
+    getMoviesDetail(Number(id))
+  );
   return (
-    <MovieClick scrollY={scrolly} layoutId={movieMatch?.params.movieId + ""}>
+    <MovieClick scrolly={scrolly} layoutId={movieMatch?.params.movieId + ""}>
       {clickedMovie && (
         <>
           <MovieCover

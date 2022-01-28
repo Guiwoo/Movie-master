@@ -101,6 +101,7 @@ const Home = () => {
                     animate={{ opacity: 1 }}
                   />
                   <ClickToShow
+                    id={movieMatch.params.movieId}
                     movieMatch={movieMatch}
                     clickedMovie={clickedMovie}
                   />
