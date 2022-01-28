@@ -16,6 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { TitleBox } from "../Components/Home/TitleBox";
 import Slider from "../Components/Home/Slider";
+import ClickToShow from "../Components/ClickToShow";
 
 const Wrapper = styled(motion.div)``;
 
@@ -37,41 +38,6 @@ const Overlay = styled(motion.div)`
   background-color: rgba(0, 0, 0, 0.7);
 `;
 
-const MovieClick = styled(motion.div)<{ scrollY: MotionValue<number> }>`
-  position: absolute;
-  width: 40vw;
-  height: 80vh;
-  right: 0;
-  left: 0;
-  margin: 0 auto;
-  top: ${(props) => props.scrollY.get() + 150}px;
-  background-color: ${(props) => props.theme.black.lighter};
-  border-radius: 15px;
-  overflow: hidden;
-`;
-
-const MovieCover = styled.div`
-  width: 100%;
-  height: 40%;
-  background-size: cover;
-  background-position: center center;
-`;
-const MTitle = styled.h2`
-  color: ${(props) => props.theme.white.lighter};
-  padding: 10px;
-  font-size: 35px;
-  font-weight: 500;
-  position: relative;
-  top: -32px;
-`;
-
-const MOverView = styled.p`
-  padding: 20px;
-  color: ${(props) => props.theme.white.lighter};
-  position: relative;
-  top: -32px;
-`;
-
 const Home = () => {
   const navigation = useNavigate();
   const { data, isLoading } = useQuery<IGetMovieResult>(
@@ -90,9 +56,8 @@ const Home = () => {
     }
   };
   const toggleLeaving = () => setLeaving((prev) => !prev);
-  const movieMatch = useMatch("/movies/:movieId");
   const onClickOverLay = () => navigation("/");
-  const { scrollY: scrolly } = useViewportScroll();
+  const movieMatch = useMatch("/movies/:movieId");
   const clickedMovie =
     movieMatch?.params.movieId &&
     data?.results.find(
@@ -135,25 +100,10 @@ const Home = () => {
                     exit={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                   />
-                  <MovieClick
-                    scrollY={scrolly}
-                    layoutId={movieMatch.params.movieId + ""}
-                  >
-                    {clickedMovie && (
-                      <>
-                        <MovieCover
-                          style={{
-                            backgroundImage: `linear-gradient(to top,black, transparent), url(${makeImgPath(
-                              clickedMovie.backdrop_path,
-                              "w500"
-                            )})`,
-                          }}
-                        ></MovieCover>
-                        <MTitle>{clickedMovie.title}</MTitle>
-                        <MOverView>{clickedMovie.overview}</MOverView>
-                      </>
-                    )}
-                  </MovieClick>
+                  <ClickToShow
+                    movieMatch={movieMatch}
+                    clickedMovie={clickedMovie}
+                  />
                 </>
               ) : null}
             </AnimatePresence>

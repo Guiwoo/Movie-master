@@ -125,16 +125,14 @@ const Banner: React.FC<BannerProps> = ({
           </div>
         </SBanner>
       ) : (
-        <>
-          <VideoBox>
-            <YouTube
-              style={{ pointerEvents: "auto" }}
-              src={`https://www.youtube-nocookie.com/embed/${data?.results[0].key}?controls=0&rel=0&autoplay=1&mute=1&enablejsapi=1&playlist=${data?.results[0].key}`}
-              allow="autoplay"
-              allowFullScreen
-            ></YouTube>
-          </VideoBox>
-        </>
+        <VideoBox>
+          <YouTube
+            style={{ pointerEvents: "auto" }}
+            src={`https://www.youtube-nocookie.com/embed/${data?.results[0].key}?controls=0&rel=0&autoplay=1&mute=1&enablejsapi=1&playlist=${data?.results[0].key}`}
+            allow="autoplay"
+            allowFullScreen
+          ></YouTube>
+        </VideoBox>
       )}
     </>
   );

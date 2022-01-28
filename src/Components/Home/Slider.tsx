@@ -14,6 +14,7 @@ const Row = styled(motion.div)`
   gap: 10px;
   position: absolute;
   width: 100%;
+  overflow: hidden;
   padding: 0 20px;
 `;
 
