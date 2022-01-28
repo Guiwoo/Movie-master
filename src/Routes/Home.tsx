@@ -116,12 +116,12 @@ const Home = () => {
               maxIndex={Math.floor((data.results.length - 1) / 6)}
               index={index}
             />
-            <Slider
+            {/* <Slider
               data={data}
               offset={offset}
               toggleLeaving={toggleLeaving}
               index={index}
-            />
+            /> */}
             <AnimatePresence>
               {movieMatch ? (
                 <>

@@ -1,3 +1,7 @@
 export const makeImgPath = (id:string,format?:string) => {
     return `https://image.tmdb.org/t/p/${format?format:"original"}/${id}`
 }
+
+export const trimText = (text:string) => {
+    return text.slice(0,80) + "..."
+}

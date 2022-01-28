@@ -2,6 +2,9 @@ import { useQuery } from "react-query";
 import styled from "styled-components";
 import { homeVideo } from "../../api";
 import React, { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamation } from "@fortawesome/free-solid-svg-icons";
+import { trimText } from "../../utils";
 
 const SBanner = styled.div<{ bgPhoto: string }>`
   height: 99vh;
@@ -22,11 +25,11 @@ const Title = styled.h2`
 const OverView = styled.span`
   font-size: 18px;
   font-weight: 500;
-  background-color: black;
   border-radius: 10px;
   padding: 2px 5px;
   display: flex;
   width: 40%;
+  margin-bottom: 20px;
 `;
 
 const YouTube = styled.iframe`
@@ -52,11 +55,20 @@ const VideoInfo = styled.div`
 
 const VideoTitle = styled(Title)`
   font-size: 38px;
-  background-color: black;
+  text-shadow: 0 0 5px black;
   border-radius: 10px;
   padding: 2px 5px;
   display: flex;
   width: 40%;
+`;
+
+const DetailBox = styled.div`
+  cursor: pointer;
+  font-size: 24px;
+  max-width: 10%;
+  background-color: ${(props) => props.theme.black.lighter};
+  text-align: center;
+  border-radius: 7px;
 `;
 
 type BannerProps = {
@@ -67,50 +79,38 @@ type BannerProps = {
 };
 
 const Banner: React.FC<BannerProps> = ({ title, overview, id, bgPhoto }) => {
-  const { data, isLoading } = useQuery(["video", id], () => homeVideo(id));
-  let moveTrack: any = null;
-  const [move, setMove] = useState(false);
-  const mouseMoving = () => {
-    if (move) {
-      clearTimeout(moveTrack);
-      setTimeout(() => {
-        setMove(false);
-      }, 5000);
-    }
-    setMove(true);
-    moveTrack = setTimeout(() => {
-      setMove(false);
-    }, 5000);
-  };
+  const { data } = useQuery(["video", id], () => homeVideo(id));
+  const [showPoster, setShowPoster] = useState(false);
   useEffect(() => {
-    return () => mouseMoving();
+    setTimeout(() => {
+      setShowPoster(true);
+    }, 8000);
+    return clearTimeout();
   }, []);
   return (
     <>
-      {isLoading ? (
+      {showPoster ? (
         <SBanner bgPhoto={bgPhoto}>
-          <Title>{title}</Title>
-          <OverView>{overview}</OverView>
+          <VideoTitle>{title}</VideoTitle>
+          <OverView>{trimText(overview)}</OverView>
+          <DetailBox>
+            <FontAwesomeIcon
+              icon={faExclamation}
+              style={{ marginRight: "10px" }}
+            />
+            <span>상세정보</span>
+          </DetailBox>
         </SBanner>
       ) : (
         <>
           <VideoBox>
             <YouTube
-              onMouseMove={mouseMoving}
               style={{ pointerEvents: "auto" }}
-              src={`https://www.youtube-nocookie.com/embed/${data?.results[0].key}?controls=1&rel=0&autoplay=1&mute=1&enablejsapi=1&loop=1&playlist=${data?.results[0].key}`}
+              src={`https://www.youtube-nocookie.com/embed/${data?.results[0].key}?controls=1&rel=0&autoplay=1&mute=1&enablejsapi=1&playlist=${data?.results[0].key}`}
               allow="autoplay"
               allowFullScreen
             ></YouTube>
           </VideoBox>
-          <VideoInfo onMouseUp={mouseMoving} style={{ marginBottom: "200px" }}>
-            {move ? (
-              <>
-                <VideoTitle>{title}</VideoTitle>
-                <OverView>{overview}</OverView>
-              </>
-            ) : null}
-          </VideoInfo>
         </>
       )}
     </>
