@@ -1,13 +1,14 @@
-import { useQuery } from "react-query";
+import {useQuery} from "react-query";
 import styled from "styled-components";
-import { homeVideo } from "../../api";
-import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamationCircle, faPlay } from "@fortawesome/free-solid-svg-icons";
-import { trimText } from "../../utils";
-import { motion } from "framer-motion";
+import {movieVideo} from "../../api";
+import React, {useEffect, useState} from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faExclamationCircle, faPlay} from "@fortawesome/free-solid-svg-icons";
+import {trimText} from "../../utils";
+import {motion} from "framer-motion";
+import VideoBox from "../VideoBox";
 
-const SBanner = styled.div<{ bgPhoto: string }>`
+const SBanner = styled.div<{bgPhoto: string}>`
   height: 77vh;
   display: flex;
   flex-direction: column;
@@ -33,22 +34,6 @@ const OverView = styled.span`
   margin-bottom: 20px;
 `;
 
-const YouTube = styled.iframe`
-  width: 100vw;
-  height: 99vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: absolute;
-  top: -80px;
-  left: 0;
-`;
-const VideoBox = styled.div`
-  position: relative;
-  padding-top: 25px;
-  padding-bottom: 50%;
-`;
-
 const VideoTitle = styled(Title)`
   font-size: 38px;
   text-shadow: 0 0 5px black;
@@ -60,20 +45,20 @@ const VideoTitle = styled(Title)`
 
 const DetailBox = styled(motion.div)`
   cursor: pointer;
-  font-size: 24px;
-  max-width: 10%;
+  font-size: 20px;
+  max-width: 20%;
   background-color: ${(props) => props.theme.black.lighter};
   text-align: center;
   border-radius: 7px;
-  padding: 5px 3px;
+  padding: 10px 6px;
 `;
 const LinkToYoutube = styled.a`
-  font-size: 24px;
-  max-width: 10%;
+  font-size: 20px;
+  max-width: 20%;
   background-color: ${(props) => props.theme.black.lighter};
   text-align: center;
   border-radius: 7px;
-  padding: 5px 3px;
+  padding: 10px 6px;
   cursor: pointer;
 `;
 
@@ -92,7 +77,7 @@ const Banner: React.FC<BannerProps> = ({
   bgPhoto,
   onBoxClicked,
 }) => {
-  const { data } = useQuery(["video", id], () => homeVideo(id));
+  const {data} = useQuery(["video", id], () => movieVideo(id));
   const [showPoster, setShowPoster] = useState(false);
   useEffect(() => {
     setTimeout(() => {
@@ -106,33 +91,26 @@ const Banner: React.FC<BannerProps> = ({
         <SBanner bgPhoto={bgPhoto}>
           <VideoTitle>{title}</VideoTitle>
           <OverView>{trimText(overview)}</OverView>
-          <div style={{ display: "flex" }}>
+          <div style={{display: "flex"}}>
             <LinkToYoutube
-              style={{ marginRight: "10px" }}
+              style={{marginRight: "10px"}}
               href={`https://www.youtube-nocookie.com/embed/${data?.results[0].key}?&autoplay=1&mute=1`}
               target="_blank"
             >
-              <FontAwesomeIcon icon={faPlay} style={{ marginRight: "10px" }} />
+              <FontAwesomeIcon icon={faPlay} style={{marginRight: "10px"}} />
               <span>재생</span>
             </LinkToYoutube>
             <DetailBox layoutId={id + ""} onClick={() => onBoxClicked(id)}>
               <FontAwesomeIcon
                 icon={faExclamationCircle}
-                style={{ marginRight: "10px" }}
+                style={{marginRight: "10px"}}
               />
               <span>상세정보</span>
             </DetailBox>
           </div>
         </SBanner>
       ) : (
-        <VideoBox>
-          <YouTube
-            style={{ pointerEvents: "auto" }}
-            src={`https://www.youtube-nocookie.com/embed/${data?.results[0].key}?controls=0&rel=0&autoplay=1&mute=1&enablejsapi=1&playlist=${data?.results[0].key}`}
-            allow="autoplay"
-            allowFullScreen
-          ></YouTube>
-        </VideoBox>
+        <VideoBox videoId={data?.results[0].key} />
       )}
     </>
   );

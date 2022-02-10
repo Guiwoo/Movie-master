@@ -397,3 +397,6 @@
 ## MyStyle
 
 - [x] Logo and enter screen Fixed
+- [] Set Video Options
+- [] Need to add play button on the poster
+- [] need to specify other video box for the selected page

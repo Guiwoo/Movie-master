@@ -1,11 +1,13 @@
-import { motion, MotionValue, useViewportScroll } from "framer-motion";
-import { useQuery } from "react-query";
-import { PathMatch } from "react-router";
+import {motion, MotionValue, useViewportScroll} from "framer-motion";
+import {useEffect, useState} from "react";
+import {useQuery} from "react-query";
+import {PathMatch} from "react-router";
 import styled from "styled-components";
-import { getMoviesDetail, IMovie } from "../api";
-import { makeImgPath } from "../utils";
+import {getMoviesDetail, IMovie, movieVideo} from "../api";
+import {makeImgPath} from "../utils";
+import VideoBox from "./VideoBox";
 
-const MovieClick = styled(motion.div)<{ scrolly: MotionValue<number> }>`
+const MovieClick = styled(motion.div)<{scrolly: MotionValue<number>}>`
   position: absolute;
   width: 60vw;
   height: 99vh;
@@ -40,8 +42,6 @@ const MOverView = styled.p`
   top: -32px;
 `;
 
-const VideoMovie = styled.iframe``;
-
 type ClickToShowProp = {
   movieMatch: PathMatch<"movieId"> | null;
   clickedMovie: "" | IMovie | undefined;
@@ -53,22 +53,39 @@ const ClickToShow: React.FC<ClickToShowProp> = ({
   clickedMovie,
   id,
 }) => {
-  const { scrollY: scrolly } = useViewportScroll();
-  const { data, isLoading } = useQuery(["detail", id], () =>
+  const {scrollY: scrolly} = useViewportScroll();
+  const [showPoster, setShowPoster] = useState(false);
+
+  const {data, isLoading} = useQuery(["detail", id], () =>
     getMoviesDetail(Number(id))
   );
+  const {data: videoData, isLoading: videoLoading} = useQuery(
+    ["video", id],
+    () => movieVideo(Number(id))
+  );
+  useEffect(() => {
+    setTimeout(() => {
+      setShowPoster(true);
+    }, 5000);
+    return clearTimeout();
+  }, []);
+
   return (
     <MovieClick scrolly={scrolly} layoutId={movieMatch?.params.movieId + ""}>
       {clickedMovie && (
         <>
-          <MovieCover
-            style={{
-              backgroundImage: `linear-gradient(to top,black, transparent), url(${makeImgPath(
-                clickedMovie.backdrop_path,
-                "w500"
-              )})`,
-            }}
-          ></MovieCover>
+          {showPoster ? (
+            <MovieCover
+              style={{
+                backgroundImage: `linear-gradient(to top,black, transparent), url(${makeImgPath(
+                  clickedMovie.backdrop_path,
+                  "w500"
+                )})`,
+              }}
+            ></MovieCover>
+          ) : (
+            <VideoBox videoId={videoData?.results[0].key} />
+          )}
           <MTitle>{clickedMovie.title}</MTitle>
           <MOverView>{clickedMovie.overview}</MOverView>
         </>

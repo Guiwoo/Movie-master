@@ -1,20 +1,13 @@
-import { useQuery } from "react-query";
-import { getMovies, IGetMovieResult } from "../api";
+import {useQuery} from "react-query";
+import {getMovies, IGetMovieResult} from "../api";
 import styled from "styled-components";
-import { makeImgPath } from "../utils";
-import {
-  motion,
-  AnimatePresence,
-  useViewportScroll,
-  MotionValue,
-} from "framer-motion";
-import { useState } from "react";
-import { useMatch, useNavigate } from "react-router";
+import {makeImgPath} from "../utils";
+import {motion, AnimatePresence} from "framer-motion";
+import {useState} from "react";
+import {useMatch, useNavigate} from "react-router";
 import Banner from "../Components/Home/Banner";
-import { MainTitle, StatusBox } from "../Components/shared";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { TitleBox } from "../Components/Home/TitleBox";
+import {StatusBox} from "../Components/shared";
+import {TitleBox} from "../Components/Home/TitleBox";
 import Slider from "../Components/Home/Slider";
 import ClickToShow from "../Components/ClickToShow";
 
@@ -40,7 +33,7 @@ const Overlay = styled(motion.div)`
 
 const Home = () => {
   const navigation = useNavigate();
-  const { data, isLoading } = useQuery<IGetMovieResult>(
+  const {data, isLoading} = useQuery<IGetMovieResult>(
     ["movies", "nowPlaying"],
     getMovies
   );
@@ -97,8 +90,8 @@ const Home = () => {
                 <>
                   <Overlay
                     onClick={onClickOverLay}
-                    exit={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
+                    exit={{opacity: 0}}
+                    animate={{opacity: 1}}
                   />
                   <ClickToShow
                     id={movieMatch.params.movieId}
