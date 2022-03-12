@@ -400,3 +400,5 @@
 - [] Set Video Options
 - [] Need to add play button on the poster
 - [] need to specify other video box for the selected page
+
+//get thumbnail!! https://i.ytimg.com/vi/{videoData.key}/hqdefault.jpg
